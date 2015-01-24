@@ -1,8 +1,86 @@
 /* This is our main file for css/sass */
 
+@font-face {
+  font-family: 'custom-font';
+  src: url('../fonts/custom-font.eot?80110893');
+  src: url('../fonts/custom-font.eot?80110893#iefix') format('embedded-opentype'),
+       url('../fonts/custom-font.woff?80110893') format('woff'),
+       url('../fonts/custom-font.ttf?80110893') format('truetype'),
+       url('../fonts/custom-font.svg?80110893#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?80110893#fontello') format('svg');
+  }
+}
+*/
+
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "custom-font";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-brand:before { content: '\e800'; } /* '' */
+.icon-sketch:before { content: '\e801'; } /* '' */
+.icon-web:before { content: '\e802'; } /* '' */
+.icon-motion:before { content: '\e803'; } /* '' */
+
+html {
+	box-sizing: border-box;
+
+	-moz-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
 body{
-	background-color: $background;
-	font-family: sans-serif;
+	color: $primary;
+	background: $background;
+	font-weight: 400;
+	font-size: 1em;
+	font-family: 'Raleway', Arial, sans-serif;
+}
+
+.container {
+	text-align: center;
+	padding: 5.25em 0.5em 0;
 }
 
 .primary-btn{
@@ -20,7 +98,265 @@ body{
 	}
 }
 
-ul{
-	@extend .border;
+.button-wrap {
+  margin-bottom: 3em;
 }
 
+.button {
+  background: none;
+  border: none;
+  border-radius: 25px;
+  width: 250px;
+  height: 105px;
+  outline: none;
+  position: relative;
+  margin: 1em;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  /* For some Androids */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button--round {
+  width: 150px;
+  height: 150px;
+}
+
+.button__text {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+  font-size: 8em;
+  color: $primary;
+  font-weight: bold;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button__text-light {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+  font-size: 8em;
+  color: $background;
+  font-weight: bold;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.morph-shape {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.button--line {
+  .morph-shape svg {
+    fill: none;
+    stroke: $primary;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    -webkit-transition: box-shadow 0.2s;
+    -moz-transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s;
+  }
+  &:after .morph-shape svg {
+    top: 0;
+    left: 0;
+    padding: 0;
+    box-shadow: 0 0 0 3px $primary;
+    -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
+    -moz-transition: -moz-transform 0.2s, opacity 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  &:hover {
+    &:after .morph-shape svg {
+      -webkit-transform: scale(0.85);
+      -moz-transform: scale(0.85);
+      -ms-transform: scale(0.85);
+      transform: scale(0.85);
+      opacity: 0.5;
+    }
+    .morph-shape svg {
+      fill: $secondary;
+      -webkit-transform: scale(0.85);
+      -moz-transform: scale(0.85);
+      -ms-transform: scale(0.85);
+      transform: scale(0.85);
+      transition: all 100ms ease-in-out;
+      box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.4);
+      color: $primary;
+    }
+  }
+  &:nth-child(2) {
+    .morph-shape svg {
+      fill: $primary-dark;
+    }
+    &:hover .morph-shape svg {
+      fill: $secondary;
+    }
+  }
+}
+
+.button--fill {
+  .morph-shape svg {
+    fill: $primary-dark;
+  }
+  &:after .morph-shape svg {
+    top: 0;
+    left: 0;
+    padding: 0;
+    box-shadow: 0 0 0 3px #fff;
+    -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
+    -moz-transition: -moz-transform 0.2s, opacity 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  &:hover {
+    &:after .morph-shape svg, .morph-shape svg {
+      fill: $secondary;
+      -webkit-transform: scale(0.85);
+      -moz-transform: scale(0.85);
+      -ms-transform: scale(0.85);
+      transform: scale(0.85);
+      transition: all 100ms ease-in-out;
+      box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.4);
+      color: #fff;
+    }
+  }
+  &:nth-child(4) {
+    .morph-shape svg {
+      fill: $primary;
+      color: $background;
+    }
+    &:hover .morph-shape svg {
+      fill: #03A9F4;
+    }
+  }
+}
+
+.button--round .morph-shape svg {
+  stroke-width: 7px;
+  border-radius: 50%;
+  -webkit-transition: box-shadow 0.2s;
+  -moz-transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s;
+  -ms-transform: rotate(90deg);
+  /* IE 9 */
+  -webkit-transform: rotate(90deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(90deg);
+}
+
+.icon-brand:hover:before {
+  color: $background;
+  -webkit-animation: toBottomFromTop 0.3s forwards;
+  -moz-animation: toBottomFromTop 0.3s forwards;
+  animation: toBottomFromTop 0.3s forwards;
+}
+
+@-webkit-keyframes toBottomFromTop {
+	49% {
+		-webkit-transform: translateY(100%);
+	}
+	50% {
+		opacity: 0;
+		-webkit-transform: translateY(-100%);
+	}
+	51% {
+		opacity: 1;
+	}
+}
+@-moz-keyframes toBottomFromTop {
+	49% {
+		-moz-transform: translateY(100%);
+	}
+	50% {
+		opacity: 0;
+		-moz-transform: translateY(-100%);
+	}
+	51% {
+		opacity: 1;
+	}
+}
+@keyframes toBottomFromTop {
+	49% {
+		transform: translateY(100%);
+	}
+	50% {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+	51% {
+		opacity: 1;
+	}
+}
+
+.icon-sketch:hover:before {
+  color: $background;
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.icon-web:hover:before {
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.icon-motion:hover:before {
+  -webkit-animation: spinAround 2s linear infinite;
+  -moz-animation: spinAround 2s linear infinite;
+  animation: spinAround 2s linear infinite;
+}
+
+@-webkit-keyframes spinAround {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+
+@-moz-keyframes spinAround {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
